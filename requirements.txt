@@ -1,0 +1,25 @@
+# Taller Hands-On AI - FIT 2026
+#
+# En Google Colab casi todo esto ya viene instalado. Cada notebook instala por
+# su cuenta lo que le falta, en su primera celda. Este archivo sirve para
+# reproducir el taller fuera de Colab:
+#
+#     pip install -r requirements.txt
+
+# Nucleo: notebooks 0 y 1 (descenso de gradiente, redes neuronales)
+numpy>=1.26
+matplotlib>=3.7
+ipywidgets>=8.0
+
+# Notebook 2 (deep Q-learning) y notebook 3 (modelo de lenguaje neuronal)
+torch>=2.0
+
+# Notebooks 3 y 4 (modelos de lenguaje preentrenados, chain-of-thought, RAG)
+transformers>=4.44
+accelerate>=0.30
+sentence-transformers>=3.0
+scikit-learn>=1.3
+
+# Para ejecutar los notebooks localmente
+jupyterlab>=4.0
+nbconvert>=7.0
