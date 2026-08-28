@@ -123,53 +123,74 @@ grande de cada fila. Esa columna es la \textbf{estrategia} del agente.
 % ==================================================================
 \cabecera
 
-\section{La tabla de bigramas, a mano}
+\section{La tabla de n-gramas, a mano}
 
 Un modelo de lenguaje predice la siguiente palabra. La forma m\'as simple de
-hacerlo es \textbf{contar}: para cada palabra, apunta qu\'e palabras vinieron
-despu\'es y cu\'antas veces.
+hacerlo es \textbf{contar}: para cada contexto, apunta qu\'e palabras vinieron
+despu\'es y cu\'antas veces. Este es todo nuestro texto:
 
+\vspace{-2pt}
 \begin{center}
-  \includegraphics[width=1.0\textwidth]{bigramas.pdf}
+  \includegraphics[width=0.62\textwidth]{bigramas.pdf}
 \end{center}
 
 \vspace{-6pt}
-\noindent Ejemplo: despu\'es de \texttt{el} viene \texttt{gato} dos veces y
-\texttt{perro} una. Completa el resto.
+\noindent\textbf{Paso 1. Con UNA palabra de contexto} (bigramas).
+Ejemplo: despu\'es de \texttt{gato} viene \texttt{come} una vez y \texttt{bebe}
+otra. Completa el resto.
 
-\vspace{6pt}
+\vspace{2pt}
 \begin{center}
-\setlength{\tabcolsep}{12pt}
-\begin{tabular}{|l|p{100mm}|}
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\celda}{\rule{0pt}{3.5ex}}
+\begin{tabular}{|l|p{52mm}||l|p{52mm}|}
 \hline
-\rule{0pt}{3.4ex} \textbf{despu\'es de\ldots} &
-\textbf{\ldots viene (palabra y cu\'antas veces)} \\
+\rule{0pt}{3.2ex} \textbf{tras\ldots} & \textbf{\ldots viene} &
+\textbf{tras\ldots} & \textbf{\ldots viene} \\
 \hline
-\celda \texttt{el}      & \\ \hline
-\celda \texttt{gato}    & \\ \hline
-\celda \texttt{come}    & \\ \hline
-\celda \texttt{pescado} & \\ \hline
-\celda \texttt{y}       & \\ \hline
-\celda \texttt{duerme}  & \\ \hline
-\celda \texttt{perro}   & \\ \hline
+\celda \texttt{el}      & & \celda \texttt{bebe}    & \\ \hline
+\celda \texttt{gato}    & & \celda \texttt{agua}    & \\ \hline
+\celda \texttt{come}    & & \celda \texttt{perro}   & \\ \hline
+\celda \texttt{pescado} & & \celda \texttt{carne}   & \\ \hline
 \end{tabular}
 \end{center}
 
-\vspace{4pt}
-\noindent\textbf{Tres preguntas:}
+\vspace{-2pt}
+\noindent\textbf{Paso 2. Con DOS palabras de contexto} (trigramas).
+Las mismas cuentas, pero mirando dos palabras hacia atr\'as.
+
+\vspace{2pt}
+\begin{center}
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\celda}{\rule{0pt}{3.5ex}}
+\begin{tabular}{|l|p{52mm}||l|p{52mm}|}
+\hline
+\rule{0pt}{3.2ex} \textbf{tras\ldots} & \textbf{\ldots viene} &
+\textbf{tras\ldots} & \textbf{\ldots viene} \\
+\hline
+\celda \texttt{el gato}    & & \celda \texttt{el perro}    & \\ \hline
+\celda \texttt{gato come}  & & \celda \texttt{perro come}  & \\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{2pt}
+\noindent\textbf{Ahora razona con tus tablas:}
 \begin{itemize}
-  \item Si el modelo acaba de escribir \texttt{el}, ¿qu\'e palabra elige?
-        ¿Con qu\'e probabilidad? \rule{55mm}{0.4pt}
-  \item Fíjate en la \textbf{forma} de esta tabla y en la de la otra cara.
-        ¿En qu\'e se parecen? \rule{55mm}{0.4pt}
-  \item ¿Cu\'antas filas tendr\'ia esta tabla si en vez de una palabra
-        mir\'aramos las \textbf{tres} anteriores? \rule{40mm}{0.4pt}
+  \item El modelo acaba de escribir \texttt{come}. ¿Qu\'e palabra sigue?
+        ¿Con qu\'e probabilidad? \rule{45mm}{0.4pt}
+  \item Y si acaba de escribir \texttt{gato come}, ¿ahora lo sabes seguro?
+        \rule{45mm}{0.4pt}
+  \item Con \textbf{tres} palabras de contexto, ninguna fila tiene m\'as de una
+        opci\'on. Compru\'ebalo con \texttt{el gato come}. Entonces, aparte de
+        \textbf{copiar} el texto, ¿qu\'e puede hacer el modelo?
+        \rule{35mm}{0.4pt}
 \end{itemize}
 
-\vspace{4pt}
-\noindent{\color{ETHRed}\small\textbf{Esa \'ultima pregunta es la del taller.}
-Cuantas m\'as palabras de contexto, m\'as filas, y menos ejemplos por fila.
-Ah\'i es donde la tabla se rompe y hace falta una red.}
+\vspace{2pt}
+\noindent{\color{ETHRed}\small\textbf{Ese es el problema del taller.} M\'as
+contexto quita dudas, pero deja menos ejemplos en cada fila. Al final cada fila
+tiene una sola opci\'on y el modelo ya no aprende el idioma: se lo aprende de
+memoria. Ah\'i es donde hace falta una red.}
 
 \piedepagina
 
